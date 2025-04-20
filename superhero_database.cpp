@@ -1,7 +1,7 @@
 //***********************************************************
 //Authur.....: Sean Kelly
-//assignment.: 2-1
-//discription: This program will display the following output
+//assignment.: super hero database
+//discription: This program will display super heros
 //************************************************************
 
 #include<iostream>
