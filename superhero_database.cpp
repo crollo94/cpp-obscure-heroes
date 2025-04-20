@@ -19,12 +19,22 @@ string weakness[arraySize];
 string yearUni[arraySize][2];     //multidimensinoal array for the year and universe 
 
 void loadSuperherodata();
-void displayMenu();
+void displaymenu();
+void searchbyname();
+void searchbypower();
+void sortbyletter();
+void caseoption();
 
 string converttolower(string heroname)
 {
     transform(heroname.begin(), heroname.end(), heroname.begin(), ::tolower);
     return heroname;
+}
+
+string converttoupper(string text)
+{
+    transform(text.begin(), text.end(), text.begin(), ::toupper);
+    return text;
 }
 
 void loadSuperherodata()
@@ -41,7 +51,7 @@ void loadSuperherodata()
     name[9] = "Ruby Thursday"; power[9] = "Morphing Head"; weakness[9] = "Head Damage"; yearUni[9][0] = "1976"; yearUni[9][1] = "Marvel";
 }
 
-void searchbyName()
+void searchbyname()
 {
     string userInput;
     cout << "Enter a superhero name to search: ";
@@ -63,14 +73,132 @@ void searchbyName()
         }
     }
 
+    if (!found)
+    {
+        cout << "superhero not found! ";
+    }
+} 
 
+void searchbypower()
+{
+    string userinput;
+    cout << "enter a power to search for ";
+    getline(cin, userinput);
+    userinput = converttolower(userinput);
+    bool found = false;
 
+    for (int i = 0; i < arraySize; i++)
+    {
+        if (converttolower(power[i]).find(userinput)!= string::npos)
+        {
+            cout << " found " << name[i] << " " << power[i] << " ";
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        cout << " no superheros found with that power ";
+    }
+}
+
+void sortbyletter()
+{
+    for (int i=0; i < arraySize - 1; i++)
+    {
+        for(int j = i + 1; j < arraySize; j++)
+        {
+            if(name[i] > name[j])
+            {
+                swap(name[i], name[j]);
+                swap(power[i], power[j]);
+                swap(weakness[i], weakness[j]);
+                swap(yearUni[i][0], yearUni[j][0]);
+                swap(yearUni[i][1], yearUni[j][1]);
+
+            }
+        }
+    }
+
+    cout << "super heros sorted! ";
+    for (int i = 0; i < arraySize; i++)
+    {
+        cout << name[i] << " " << power[i]<< " " << weakness[i] << " " << yearUni[i][0] << " " << yearUni[i][1] << endl;
+    }
+}
+
+void caseoption()
+{
+    int option;
+    cout << " display all names in " << endl;
+    cout << " 1. Uppercase" << endl;
+    cout << " 2. Lowercase" << endl;
+    cout << "Enter option ";
+    cin >> option;
+    cin.ignore();
+
+    for (int i = 0; i <arraySize; i++)
+    {
+        string displayname = name[i];
+        if (option == 1)
+        {
+            displayname = converttoupper(displayname);
+        }
+        else if (option == 2)
+        {
+            displayname = converttolower(displayname);
+        }
+        cout << displayname << " " << power[i] << " " << weakness[i] << " " << yearUni[i][0] << " " << yearUni[i][1] << endl;
+    }
+}
+
+void displaymenu()
+{
+    int option;
+    do
+    {
+        cout << "====== Superhero Database Menu ======" << endl;
+        cout << "1. search for a superhero by name" << endl;
+        cout << "2. find superheros by power!" << endl;
+        cout << "3. Sort superheros by alphabet" << endl;
+        cout << "4. display all superheros in upper or lowercase "<< endl;
+        cout << "5. exit " << endl;
+        cout << "enter your option ";
+        cin >> option;
+        cin.ignore();
+
+        switch (option)
+        {
+        case 1:
+            searchbyname();
+            break;
+        case 2:
+            searchbypower();
+            break;
+        case 3:
+            sortbyletter();
+            break;
+        case 4:
+            caseoption();
+            break;
+        case 5:
+            cout << "exiting! "; << endl;
+            break;
+        default:
+            cout << "invalid option, try again! " << endl;
+        
+            
+        }
+
+    } while (option != 5);
+    
+}
 
 
 
 int main()
 {
    loadSuperherodata();   //load my superheros 
-   displayMenu();           // me options for the user
+   displaymenu();           // me options for the user
    return 0;
 }
