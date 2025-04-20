@@ -182,7 +182,7 @@ void displaymenu()
             caseoption();
             break;
         case 5:
-            cout << "exiting! "; << endl;
+            cout << "exiting! " << endl;
             break;
         default:
             cout << "invalid option, try again! " << endl;
